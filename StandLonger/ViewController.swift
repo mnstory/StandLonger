@@ -10,9 +10,23 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var blinkImageView: UIImageView!
+    
+    var blinkTimer: NSTimer?
+    var blinkIdx: Int = 0
+    
+    func lightBlink() {
+        ++blinkIdx
+        if blinkIdx > 12 {
+            blinkIdx = 1
+        }
+        
+        blinkImageView.image = UIImage(named: "\(blinkIdx).png")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        blinkTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "lightBlink", userInfo: nil, repeats: true)
     }
 
     override func didReceiveMemoryWarning() {
